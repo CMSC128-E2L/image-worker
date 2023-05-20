@@ -8,6 +8,21 @@ export default {
           await env.STALS_BUCKET.put(key, request.body);
           return new Response(`Put ${key} successfully!`);
         case 'GET':
+          const rpath = key.split("/");
+          if(rpath.length == 2){
+            const options: R2ListOptions = {
+              prefix: rpath[1],
+              limit: 2
+            }
+            const obj = await env.STALS_BUCKET.list(options);
+            let list = [];
+            for (let index = 0; index < obj.objects.length; index++) {
+              const element = obj.objects[index];
+              list.push("https://"+url.hostname+"/"+element.key);
+            }
+            const res = new Response(JSON.stringify(list));
+            return res;
+          }
           const object = await env.STALS_BUCKET.get(key);
   
           if (object === null) {
