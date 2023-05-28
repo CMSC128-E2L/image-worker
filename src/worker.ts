@@ -24,9 +24,9 @@ export default {
           }
 
           const rpath = key.split("/");
-          // api/id/filename
-          if (rpath.length === 3) {
-            key = rpath[1]+"/"+rpath[2];
+          // api/v2/id/filename
+          if (rpath.length === 4) {
+            key = rpath[2] + "/" + rpath[3];
           }
 
           if (rpath.length == 2) {
