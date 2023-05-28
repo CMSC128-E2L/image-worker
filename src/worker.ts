@@ -2,7 +2,7 @@ export default {
   async fetch(request: Request, env: Env, context: ExecutionContext) {
     try {
       const url = new URL(request.url);
-      const key = url.pathname.slice(1);
+      let key = url.pathname.slice(1);
 
       switch (request.method) {
         case 'PUT':
@@ -24,6 +24,10 @@ export default {
           }
 
           const rpath = key.split("/");
+          // api/id/filename
+          if (rpath.length === 3) {
+            key = rpath[1]+"/"+rpath[2];
+          }
 
           if (rpath.length == 2) {
             let options: R2ListOptions = {
@@ -75,8 +79,8 @@ export default {
             },
           });
       }
-    } catch (e) {
-      return new Response('Error thrown ' + e.message);
+    } catch (e: unknown) {
+      return new Response('Error thrown ' + e);
     }
   },
 };
