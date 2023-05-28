@@ -45,7 +45,7 @@ export default {
             const obj = await env.STALS_BUCKET.list(options);
             let list: string[] = [];
             obj.objects.forEach(element => {
-              list.push("https://" + url.hostname + "/" + element.key);
+              list.push("https://" + url.hostname + "/api/v2/" + element.key);
             });
             const res = new Response(JSON.stringify(list));
             return res;
