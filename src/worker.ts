@@ -32,7 +32,6 @@ export default {
           if (rpath.length == 2) {
             let options: R2ListOptions = {
               prefix: rpath[1],
-              limit: 3
             }
             switch (rpath[0]) {
               case "getOne":
